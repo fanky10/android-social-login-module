@@ -6,6 +6,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
+        <!-- Facebook SDK Integration -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_key"/>
+
+        <!-- To use Facebook Login or Share -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/facebook_app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login"></activity>
