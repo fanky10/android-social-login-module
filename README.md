@@ -5,6 +5,7 @@ Android social login module for facebook, g+ whatever comes next
 Add the corresponding maven repository configuration section to your build.gradle (module config)
 
 repositories {
+
     mavenCentral()
 
     maven {
