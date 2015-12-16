@@ -1,0 +1,56 @@
+language: android
+android:
+  components:
+    - android-23
+    - build-tools-23.0.2
+
+before_install:
+  - chmod +x gradlew
+  - echo 'BEFORE UPDATE SDK'
+  # Comment out the lines below to list suggested Android SDK components.
+  - android list sdk -e || true
+  # Comment out the lines below to list available Android SDK components.
+  - android list sdk -a -e || true
+  # Comment out the lines below to list avalaible AVDs, Android targets and device definitions.
+  - android list avd -c || true
+  - android list target -c || true
+  - android list device -c || true
+
+  - echo 'UPDATE SDK'
+  # Comment out the lines below to update components when a new version is suggested. No --all flag.
+  - echo yes | android update sdk -u -t tool || true
+  - echo yes | android update sdk -u -t platform-tool || true
+  - echo yes | android update sdk -a -u -t $BUILD_TOOLS || true
+
+  - echo 'AFTER UPDATE SDK'
+  # Comment out the lines below to list suggested Android SDK components. Check remaining entries.
+  - android list sdk -e || true
+  # Comment out the lines below to list available Android SDK components. Check new entries.
+  - android list sdk -a -e || true
+  # Comment out the lines below to list available AVDs, Android targets and device definitions.
+  - android list || true
+  # Comment out the lines below to check suggested components by filter (no doc, sample or source)
+  - android update sdk -u -n -t platform,system-image,add-on,extra,tool,platform-tool || true
+  - android update sdk -u -n -t platform || true
+  - android update sdk -u -n -t system-image || true
+  - android update sdk -u -n -t add-on || true
+  - android update sdk -u -n -t extra || true
+  - android update sdk -u -n -t tool || true
+  - android update sdk -u -n -t platform-tool || true
+  # Comment out the lines below to check all components available by filter (including installed).
+  - android update sdk -a -u -n -t platform,system-image,add-on,extra,tool,platform-tool || true
+  - android update sdk -a -u -n -t platform || true
+  - android update sdk -a -u -n -t system-image || true
+  - android update sdk -a -u -n -t add-on || true
+  - android update sdk -a -u -n -t extra || true
+  - android update sdk -a -u -n -t tool || true
+  - android update sdk -a -u -n -t platform-tool || true
+
+  # Comment out the lines below to check default android scripts and PATH
+  # - echo 'DEFAULT SCRIPTS'
+  # - echo "$PATH"
+  # - ls /usr/local/bin -Al
+  # - cat /usr/local/bin/android-accept-licenses
+  # - cat /usr/local/bin/android-update-sdk
+  # - cat /usr/local/bin/android-wait-for-emulator
+
