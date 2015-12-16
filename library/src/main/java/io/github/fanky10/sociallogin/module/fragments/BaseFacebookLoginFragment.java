@@ -13,44 +13,27 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.Arrays;
 
-import io.github.fanky10.sociallogin.module.R;
 import io.github.fanky10.sociallogin.module.constants.enums.ExternalLoginProviders;
 import io.github.fanky10.sociallogin.module.interfaces.ISocialLogin;
 
 /**
  * Created by carlospienovi1 on 12/4/15.
  */
-public class BaseFacebookLoginFragment extends Fragment implements ISocialLogin {
+public abstract class BaseFacebookLoginFragment extends Fragment implements ISocialLogin {
 
     private CallbackManager callbackManager;
+
+    protected abstract String[] getPermissions();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, getFacebookLoginCallback());
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_facebook_login, container, false);
-
-        view.findViewById(R.id.fb_login).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doFacebookLogin();
-            }
-        });
-        return view;
     }
 
     private FacebookCallback<LoginResult> getFacebookLoginCallback() {
@@ -101,21 +84,13 @@ public class BaseFacebookLoginFragment extends Fragment implements ISocialLogin 
     public void doFacebookLogin() {
         LoginManager.getInstance().logInWithReadPermissions(
                 this,
-                Arrays.asList("email"));
+                Arrays.asList(getPermissions()));
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onSocialProviderConnectionFailure(Exception e) {
-    }
-
-    @Override
-    public void onSocialProviderConnected(ExternalLoginProviders provider, String token, String email, String firstName, String lastName) {
     }
 
 }

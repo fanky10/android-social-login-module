@@ -6,7 +6,7 @@
         android:layout_height="match_parent">
 
     <Button
-            android:id="@+id/fb_login"
+            android:id="@+id/fb_login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="fb login"/>

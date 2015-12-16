@@ -22,10 +22,6 @@
             android:label="@string/facebook_app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
-        <activity
-            android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login"/>
-
     </application>
 
 </manifest>
