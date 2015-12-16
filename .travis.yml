@@ -11,16 +11,16 @@ before_install:
   - android list sdk -e || true
   # Comment out the lines below to list available Android SDK components.
   - android list sdk -a -e || true
-  # Comment out the lines below to list avalaible AVDs, Android targets and device definitions.
+  # Comment out the lines below to list available AVDs, Android targets and device definitions.
   - android list avd -c || true
   - android list target -c || true
   - android list device -c || true
 
   - echo 'UPDATE SDK'
   # Comment out the lines below to update components when a new version is suggested. No --all flag.
-  - echo yes | android update sdk -u -t tool || true
+  - echo yes | android update sdk -a -u -t build-tool-23.0.2 || true
   - echo yes | android update sdk -u -t platform-tool || true
-  - echo yes | android update sdk -a -u -t $BUILD_TOOLS || true
+
 
   - echo 'AFTER UPDATE SDK'
   # Comment out the lines below to list suggested Android SDK components. Check remaining entries.
@@ -29,22 +29,7 @@ before_install:
   - android list sdk -a -e || true
   # Comment out the lines below to list available AVDs, Android targets and device definitions.
   - android list || true
-  # Comment out the lines below to check suggested components by filter (no doc, sample or source)
-  - android update sdk -u -n -t platform,system-image,add-on,extra,tool,platform-tool || true
-  - android update sdk -u -n -t platform || true
-  - android update sdk -u -n -t system-image || true
-  - android update sdk -u -n -t add-on || true
-  - android update sdk -u -n -t extra || true
-  - android update sdk -u -n -t tool || true
-  - android update sdk -u -n -t platform-tool || true
-  # Comment out the lines below to check all components available by filter (including installed).
-  - android update sdk -a -u -n -t platform,system-image,add-on,extra,tool,platform-tool || true
-  - android update sdk -a -u -n -t platform || true
-  - android update sdk -a -u -n -t system-image || true
-  - android update sdk -a -u -n -t add-on || true
-  - android update sdk -a -u -n -t extra || true
-  - android update sdk -a -u -n -t tool || true
-  - android update sdk -a -u -n -t platform-tool || true
+
 
   # Comment out the lines below to check default android scripts and PATH
   # - echo 'DEFAULT SCRIPTS'
