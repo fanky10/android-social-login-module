@@ -1,13 +1,15 @@
 package io.github.fanky10.sociallogin.module.interfaces;
 
-import io.github.fanky10.sociallogin.module.constants.enums.ExternalLoginProviders;
+import org.json.JSONObject;
 
 /**
  * Created by carlospienovi1 on 12/4/15.
  */
 public interface ISocialLogin {
 
-    public void onSocialProviderConnected(ExternalLoginProviders provider, String token, String email, String firstName, String lastName);
+    void onSocialProviderConnected(String token, JSONObject response);
 
-    public void onSocialProviderConnectionFailure(Exception e);
+    void onSocialProviderConnectionFailure(Exception e);
+
+    void onSocialProviderConnectionCanceled();
 }
