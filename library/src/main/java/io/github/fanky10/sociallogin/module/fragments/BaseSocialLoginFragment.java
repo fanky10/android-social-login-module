@@ -14,20 +14,23 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 import java.util.Arrays;
 
-import io.github.fanky10.sociallogin.module.constants.enums.ExternalLoginProviders;
 import io.github.fanky10.sociallogin.module.interfaces.ISocialLogin;
 
 /**
  * Created by carlospienovi1 on 12/4/15.
  */
-public abstract class BaseFacebookLoginFragment extends Fragment implements ISocialLogin {
+public abstract class BaseSocialLoginFragment extends Fragment
+        implements ISocialLogin {
 
     private CallbackManager callbackManager;
 
     protected abstract String[] getPermissions();
+
+    protected abstract String[] getProfileInfo();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,30 +51,22 @@ public abstract class BaseFacebookLoginFragment extends Fragment implements ISoc
                                 // we use the new updated info
                                 // if trying to use Profile.getCurrentProfile
                                 // then add profile tracking
-                                String email = me.optString("email");
-                                String firstName = me.optString("first_name");
-                                String lastName = me.optString("last_name");
-
                                 if (response.getError() != null) {
                                     onSocialProviderConnectionFailure(response.getError().getException());
                                 } else {
-                                    onSocialProviderConnected(ExternalLoginProviders.Facebook,
-                                            AccessToken.getCurrentAccessToken().getToken(),
-                                            email,
-                                            firstName,
-                                            lastName);
+                                    onSocialProviderConnected(AccessToken.getCurrentAccessToken().getToken(), me);
                                 }
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,first_name,last_name");
+                parameters.putString("fields", TextUtils.join(",", getProfileInfo()));
                 request.setParameters(parameters);
                 request.executeAsync();
             }
 
             @Override
             public void onCancel() {
-                // fire cancel
+                onSocialProviderConnectionCanceled();
             }
 
             @Override
