@@ -1,12 +1,14 @@
 language: android
 android:
   components:
-    - android-23
+    - tools
     - build-tools-23.0.2
+    - android-23
+    - extra-android-m2repository
 
 before_install:
   - chmod +x gradlew
-  - echo 'BEFORE UPDATE SDK'
+  - echo 'DEBUG -- BEFORE UPDATE SDK'
   # Comment out the lines below to list suggested Android SDK components.
   - android list sdk -e || true
   # Comment out the lines below to list available Android SDK components.
@@ -15,27 +17,3 @@ before_install:
   - android list avd -c || true
   - android list target -c || true
   - android list device -c || true
-
-  - echo 'UPDATE SDK'
-  # Comment out the lines below to update components when a new version is suggested. No --all flag.
-  - echo yes | android update sdk -a -u -t build-tools-23.0.2 || true
-  - echo yes | android update sdk -u -t platform-tool || true
-
-
-  - echo 'AFTER UPDATE SDK'
-  # Comment out the lines below to list suggested Android SDK components. Check remaining entries.
-  - android list sdk -e || true
-  # Comment out the lines below to list available Android SDK components. Check new entries.
-  - android list sdk -a -e || true
-  # Comment out the lines below to list available AVDs, Android targets and device definitions.
-  - android list || true
-
-
-  # Comment out the lines below to check default android scripts and PATH
-  # - echo 'DEFAULT SCRIPTS'
-  # - echo "$PATH"
-  # - ls /usr/local/bin -Al
-  # - cat /usr/local/bin/android-accept-licenses
-  # - cat /usr/local/bin/android-update-sdk
-  # - cat /usr/local/bin/android-wait-for-emulator
-
