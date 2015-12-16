@@ -4,10 +4,9 @@ android:
     - android-23
     - build-tools-23.0.2
 
-# fix gradle script execution
 before_install:
- - chmod +x gradlew
- - echo 'BEFORE UPDATE SDK'
+  - chmod +x gradlew
+  - echo 'BEFORE UPDATE SDK'
   # Comment out the lines below to list suggested Android SDK components.
   - android list sdk -e || true
   # Comment out the lines below to list available Android SDK components.
