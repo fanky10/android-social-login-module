@@ -3,6 +3,10 @@ android:
   components:
     - build-tools-23.0.2
 
+# fix gradle script execution
+before_install:
+ - chmod +x gradlew
+
 # let's wait until they got it working
 # before_script:
   # Create and start emulator
