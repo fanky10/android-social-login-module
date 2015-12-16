@@ -4,7 +4,7 @@
 TODO: Before you run your application, you need a Facebook API Key and Google Maps API Key.
     -->
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">PUT_KEY_HERE</string>
-    <string name="facebook_app_key" translatable="false" templateMergeStrategy="preserve">PUT_KEY_HERE</string>
+    <string name="facebook_app_key" translatable="false" templateMergeStrategy="preserve">953570944736041</string>
     <string name="facebook_app_name" translatable="false" templateMergeStrategy="preserve">PUT__THE_NAME_HERE</string>
     <string name="twitter_app_key" translatable="false" templateMergeStrategy="preserve">PUT_KEY_HERE</string>
 </resources>
