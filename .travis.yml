@@ -18,7 +18,7 @@ before_install:
 
   - echo 'UPDATE SDK'
   # Comment out the lines below to update components when a new version is suggested. No --all flag.
-  - echo yes | android update sdk -a -u -t build-tool-23.0.2 || true
+  - echo yes | android update sdk -a -u -t build-tools-23.0.2 || true
   - echo yes | android update sdk -u -t platform-tool || true
 
 
