@@ -1,7 +1,11 @@
 package io.github.fanky10.sociallogin.module.activities;
 
+import com.facebook.FacebookSdk;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -57,6 +62,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void attemptLogin() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("GATA", "activity result");
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
 
