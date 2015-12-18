@@ -11,24 +11,12 @@ import android.widget.Toast;
 
 import io.github.fanky10.sociallogin.module.constants.Constants;
 import io.github.fanky10.sociallogin.module.fragments.BaseSocialLoginFragment;
+import io.github.fanky10.sociallogin.module.interfaces.IFacebook;
 
 /**
  * Created by carlospienovi1 on 12/16/15.
  */
 public class FacebookLoginFragment extends BaseSocialLoginFragment {
-
-    @Override
-    protected String[] getPermissions() {
-        return new String[]{Constants.FACEBOOK_EMAIL};
-    }
-
-    @Override
-    protected String[] getProfileInfo() {
-        return new String[]{
-                Constants.FACEBOOK_EMAIL,
-                Constants.FACEBOOK_FIRST_NAME,
-                Constants.FACEBOOK_LAST_NAME};
-    }
 
     @Nullable
     @Override
@@ -38,7 +26,20 @@ public class FacebookLoginFragment extends BaseSocialLoginFragment {
         view.findViewById(R.id.fb_login_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doFacebookLogin();
+                doFacebookLogin(new IFacebook() {
+                    @Override
+                    public String[] getPermissions() {
+                        return new String[]{Constants.FACEBOOK_EMAIL};
+                    }
+
+                    @Override
+                    public String[] getProfileInfo() {
+                        return new String[]{
+                                Constants.FACEBOOK_EMAIL,
+                                Constants.FACEBOOK_FIRST_NAME,
+                                Constants.FACEBOOK_LAST_NAME};
+                    }
+                });
             }
         });
 

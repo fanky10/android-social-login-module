@@ -18,6 +18,7 @@ import android.text.TextUtils;
 
 import java.util.Arrays;
 
+import io.github.fanky10.sociallogin.module.interfaces.IFacebook;
 import io.github.fanky10.sociallogin.module.interfaces.ISocialLogin;
 
 /**
@@ -26,17 +27,14 @@ import io.github.fanky10.sociallogin.module.interfaces.ISocialLogin;
 public abstract class BaseSocialLoginFragment extends Fragment
         implements ISocialLogin {
 
-    private CallbackManager callbackManager;
-
-    protected abstract String[] getPermissions();
-
-    protected abstract String[] getProfileInfo();
+    private CallbackManager mFacebookCallbackManager;
+    private IFacebook mIFacebook;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, getFacebookLoginCallback());
+        mFacebookCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mFacebookCallbackManager, getFacebookLoginCallback());
     }
 
     private FacebookCallback<LoginResult> getFacebookLoginCallback() {
@@ -59,7 +57,7 @@ public abstract class BaseSocialLoginFragment extends Fragment
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", TextUtils.join(",", getProfileInfo()));
+                parameters.putString("fields", TextUtils.join(",", mIFacebook.getProfileInfo()));
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -76,16 +74,17 @@ public abstract class BaseSocialLoginFragment extends Fragment
         };
     }
 
-    public void doFacebookLogin() {
+    public void doFacebookLogin(IFacebook iFacebook) {
+        mIFacebook = iFacebook;
         LoginManager.getInstance().logInWithReadPermissions(
                 this,
-                Arrays.asList(getPermissions()));
+                Arrays.asList(iFacebook.getPermissions()));
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 }
