@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import io.github.fanky10.sociallogin.module.constants.Constants;
@@ -16,14 +17,23 @@ import io.github.fanky10.sociallogin.module.interfaces.IFacebook;
 /**
  * Created by carlospienovi1 on 12/16/15.
  */
-public class FacebookLoginFragment extends BaseSocialLoginFragment {
+public class SocialLoginFragment extends BaseSocialLoginFragment {
+
+    private Button mFacebookLogin;
+
+    @Override
+    protected int getTwitterLoginButtonId() {
+        return R.id.tw_login_button;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_facebook_login, container, false);
 
-        view.findViewById(R.id.fb_login_button).setOnClickListener(new View.OnClickListener() {
+        mFacebookLogin = (Button) view.findViewById(R.id.fb_login_button);
+
+        mFacebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 doFacebookLogin(new IFacebook() {
