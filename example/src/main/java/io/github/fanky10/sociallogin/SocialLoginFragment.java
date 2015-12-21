@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import io.github.fanky10.sociallogin.module.constants.Constants;
+import io.github.fanky10.sociallogin.module.constants.SocialLoginConstants;
 import io.github.fanky10.sociallogin.module.fragments.BaseSocialLoginFragment;
 import io.github.fanky10.sociallogin.module.interfaces.IFacebook;
 
@@ -39,15 +39,15 @@ public class SocialLoginFragment extends BaseSocialLoginFragment {
                 doFacebookLogin(new IFacebook() {
                     @Override
                     public String[] getPermissions() {
-                        return new String[]{Constants.FACEBOOK_EMAIL};
+                        return new String[]{SocialLoginConstants.FACEBOOK_EMAIL};
                     }
 
                     @Override
                     public String[] getProfileInfo() {
                         return new String[]{
-                                Constants.FACEBOOK_EMAIL,
-                                Constants.FACEBOOK_FIRST_NAME,
-                                Constants.FACEBOOK_LAST_NAME};
+                                SocialLoginConstants.FACEBOOK_EMAIL,
+                                SocialLoginConstants.FACEBOOK_FIRST_NAME,
+                                SocialLoginConstants.FACEBOOK_LAST_NAME};
                     }
                 });
             }
@@ -58,9 +58,9 @@ public class SocialLoginFragment extends BaseSocialLoginFragment {
 
     @Override
     public void onSocialProviderConnected(String token, JSONObject response) {
-        String email = response.optString(Constants.FACEBOOK_EMAIL);
-        String firstName = response.optString(Constants.FACEBOOK_FIRST_NAME);
-        String lastName = response.optString(Constants.FACEBOOK_LAST_NAME);
+        String email = response.optString(SocialLoginConstants.FACEBOOK_EMAIL);
+        String firstName = response.optString(SocialLoginConstants.FACEBOOK_FIRST_NAME);
+        String lastName = response.optString(SocialLoginConstants.FACEBOOK_LAST_NAME);
 
         Toast.makeText(getContext(), "Logged in as " + firstName + " " + lastName + " / " + email, Toast.LENGTH_SHORT).show();
     }
