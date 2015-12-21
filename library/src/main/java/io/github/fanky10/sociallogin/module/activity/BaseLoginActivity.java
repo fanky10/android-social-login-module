@@ -11,12 +11,14 @@ import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -33,6 +35,7 @@ import java.util.List;
 
 import io.github.fanky10.sociallogin.module.R;
 import io.github.fanky10.sociallogin.module.constants.SocialLoginConstants;
+import io.github.fanky10.sociallogin.module.utils.ValidateUserInfo;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -51,14 +54,25 @@ public class BaseLoginActivity extends AppCompatActivity implements
     private TextView mForgotView;
   //  private SignInButton mPlusSignInButton;
 
-    private boolean mShouldResolve = false;
     private ProgressDialog ringProgressDialog;
+
+    /**
+     * Keep track of the login task to ensure we can cancel it if requested.
+     */
+    private UserLoginTask mAuthTask = null;
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
+    /**
+     * A dummy authentication store containing known user names and passwords.
+     * TODO: remove after connecting to a real authentication system.
+     */
+    private static final String[] DUMMY_CREDENTIALS = new String[]{
+            "admin@admin.com:admin", "admin123@admin123.com:admin123"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +82,9 @@ public class BaseLoginActivity extends AppCompatActivity implements
         setContentView(R.layout.base_activity_login);
 
         // Set up the login form.
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.txt_email);
 
         mPasswordView = (EditText) findViewById(R.id.txt_password);
@@ -90,8 +107,7 @@ public class BaseLoginActivity extends AppCompatActivity implements
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        populateAutoComplete();
 
 
      /*   mPlusSignInButton = (SignInButton) findViewById(R.id.g_sign_in_button);
@@ -149,23 +165,72 @@ public class BaseLoginActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Attempts to sign in or register the account specified by the login form.
+     * If there are form errors (invalid email, missing fields, etc.), the
+     * errors are presented and no actual login attempt is made.
+     */
     private void attemptLogin() {
+        if (mAuthTask != null) {
+            return;
+        }
 
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        ValidateUserInfo validateUserInfo = new ValidateUserInfo();
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !validateUserInfo.isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!validateUserInfo.isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);
+        }
     }
 
-
-    @Override
+/*    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Make sure that the loginButton hears the result from any
         // Activity that it triggered.
-     /*   Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_social);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_social);
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
-      */
-    }
+
+    } */
 
     @Override
     public void onClick(View v) {
@@ -201,7 +266,7 @@ public class BaseLoginActivity extends AppCompatActivity implements
             @Override
             public void run() {
                 try {
-                    mShouldResolve = true;
+                    //mShouldResolve = true;
                     // connect to API Google client
                 } catch (Exception e) {
                     ringProgressDialog.dismiss();
@@ -303,4 +368,65 @@ public class BaseLoginActivity extends AppCompatActivity implements
     }
 
 
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+
+        UserLoginTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            try {
+                // Simulate network access.
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
+            }
+
+            for (String credential : DUMMY_CREDENTIALS) {
+                String[] pieces = credential.split(":");
+                if (pieces[0].equals(mEmail)) {
+                    // Account exists, return true if the password matches.
+                    return pieces[1].equals(mPassword);
+                }
+            }
+
+            // TODO: register the new account here.
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+            showProgress(false);
+
+            View parentLayout = findViewById(R.id.login_form);
+            if (success) {
+                Snackbar.make(parentLayout, "LOGIN SUCCESS!", Snackbar.LENGTH_LONG)
+                        .show();
+               // TODO: implements here like this:
+               // startActivity(new Intent(BaseLoginActivity.this, MainActivity.class));
+               // finish();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false);
+        }
+    }
 }

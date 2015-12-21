@@ -71,8 +71,6 @@
                         android:maxLines="1"
                         android:padding="8dp"
                         android:singleLine="true" />
-                    <!--    android:textColorHint="@color/abc_primary_text_material_dark" />
-                     android:textColorHint="@color/grey_0" />-->
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
@@ -160,6 +158,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="fb login"/>
+
+                <Button
+                    android:id="@+id/fb_twitter_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="tw login"/>
+
+                <Button
+                    android:id="@+id/g_login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="g+ login"/>
 
             </LinearLayout>
         </LinearLayout>

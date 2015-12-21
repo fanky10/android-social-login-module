@@ -27,9 +27,15 @@
         <activity
             android:name=".activity.BaseLoginActivity"
             android:label="BaseLogin"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.BaseRegisterActivity" />
-        <activity android:name=".activity.BaseForgotPassActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BaseRegisterActivity"
+            android:label="RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BaseForgotPassActivity"
+            android:label="ForgotPassword"
+            android:theme="@style/AppTheme.NoActionBar" />
         <!-- end base login flow -->
 
     </application>
