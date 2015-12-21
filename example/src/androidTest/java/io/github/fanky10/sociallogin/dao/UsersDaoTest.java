@@ -1,28 +1,24 @@
 package io.github.fanky10.sociallogin.dao;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.InstrumentationTestCase;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import java.util.List;
 
-import io.github.fanky10.sociallogin.SocialLoginExampleApplication;
 import io.github.fanky10.sociallogin.model.UserModel;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by fanky on 12/21/15.
  */
 @RunWith(AndroidJUnit4.class)
-public class UsersDaoTest {
+public class UsersDaoTest extends InstrumentationTestCase {
     public static final String TAG = "UsersDaoTest";
 
     private UserModel mUserModel;
@@ -31,7 +27,8 @@ public class UsersDaoTest {
 
     @Before
     public void setUp() {
-        mContext = SocialLoginExampleApplication.getInstance().getApplicationContext();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+        mContext = getInstrumentation().getTargetContext().getApplicationContext();
         mUsersDAO = new UsersDAO(mContext);
         mUserModel = new UserModel();
         mUserModel.setScope("premium");
@@ -45,6 +42,7 @@ public class UsersDaoTest {
     public void tearDown() {
         mUsersDAO.delete(mUserModel.getUsername());
     }
+
 
     @Test
     public void testFindOne() {

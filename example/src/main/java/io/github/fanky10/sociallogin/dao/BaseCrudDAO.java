@@ -48,8 +48,8 @@ public abstract class BaseCrudDAO<T> extends BaseDAO<T> {
                 "SELECT * FROM " + getTableName() + " WHERE " + getTablePrimaryKeyName() + "=?",
                 new String[]{key});
         T found = null;
-
         if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
             found = create(cursor);
         }
 
