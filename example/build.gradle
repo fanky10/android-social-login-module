@@ -29,4 +29,21 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':library')
+    // Unit testing dependencies
+    testCompile 'junit:junit:4.12'
+    // Instrumented unit testing
+    androidTestCompile('com.android.support.test:runner:0.2') {
+        transitive = true
+        exclude(module: 'support-annotations')
+    }
+    androidTestCompile('com.android.support.test:rules:0.2') {
+        transitive = true
+        exclude(module: 'support-annotations')
+    }
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
+        transitive = true
+        exclude(module: 'support-annotations')
+    }
+    // Hamcrest matching
+    androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
 }

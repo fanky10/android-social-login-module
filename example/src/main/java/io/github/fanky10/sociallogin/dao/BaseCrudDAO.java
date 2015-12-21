@@ -76,11 +76,14 @@ public abstract class BaseCrudDAO<T> extends BaseDAO<T> {
         mDatabase.delete(getTableName(), getTablePrimaryKeyName() + " = ? ", new String[]{key});
     }
 
-    public boolean exists(String key) {
-        return findOne(key) != null;
+    public void save(T entity) {
+        if (!exists(entity)) {
+            mDatabase.insert(getTableName(), null, getTableMap(entity));
+        } else {
+            update(entity);
+        }
     }
 
-    public void save(T entity) {
-       mDatabase.insert(getTableName(), null, getTableMap(entity));
-    }
+    public abstract boolean exists(T entity);
+    protected abstract void update(T entity);
 }

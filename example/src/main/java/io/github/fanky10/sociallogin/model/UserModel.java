@@ -3,7 +3,7 @@ package io.github.fanky10.sociallogin.model;
 /**
  * Created by fanky on 12/18/15.
  */
-public class BasicUserModel {
+public class UserModel {
     private String username;
     private String password;
     private String scope;
