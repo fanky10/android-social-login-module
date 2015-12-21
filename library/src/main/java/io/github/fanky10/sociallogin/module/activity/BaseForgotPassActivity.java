@@ -19,10 +19,10 @@ import io.github.fanky10.sociallogin.module.utils.CheckNetwork;
 import io.github.fanky10.sociallogin.module.utils.ValidateUserInfo;
 
 public class BaseForgotPassActivity extends Activity implements View.OnClickListener{
-        EditText edit_email;
-        TextView txt_remembered;
-        Button btn_recover;
-        ProgressDialog ringProgressDialog;
+       private EditText edit_email;
+       private TextView txt_remembered;
+       private Button btn_recover;
+       private ProgressDialog ringProgressDialog;
         private ForgotPassTask mForgotTask = null;
 
         @Override

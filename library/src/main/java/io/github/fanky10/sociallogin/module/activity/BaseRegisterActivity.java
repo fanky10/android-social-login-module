@@ -18,9 +18,9 @@ import io.github.fanky10.sociallogin.module.utils.CheckNetwork;
 import io.github.fanky10.sociallogin.module.utils.ValidateUserInfo;
 
 public class BaseRegisterActivity extends Activity implements View.OnClickListener{
-    EditText edit_nome, edit_email, edit_password;
-    TextView txt_alreadyHave;
-    Button btn_registrar;
+    private EditText edit_nome, edit_email, edit_password;
+    private TextView txt_alreadyHave;
+    private Button btn_registrar;
     private CreateUserTask mCreateTask = null;
 
     @Override
