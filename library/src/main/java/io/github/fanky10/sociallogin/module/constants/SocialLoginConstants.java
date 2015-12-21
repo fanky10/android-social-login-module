@@ -5,6 +5,7 @@ package io.github.fanky10.sociallogin.module.constants;
  */
 public class SocialLoginConstants {
 
+    public static final String TAG_EMAIL = "email";
     public static final String FACEBOOK_EMAIL = "email";
     public static final String FACEBOOK_FIRST_NAME = "first_name";
     public static final String FACEBOOK_LAST_NAME = "last_name";

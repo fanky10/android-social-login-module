@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.fanky10.sociallogin.module">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
         android:allowBackup="true"
@@ -13,14 +14,29 @@
         <!-- Facebook SDK Integration -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_key"/>
+            android:value="@string/facebook_app_key" />
 
         <!-- To use Facebook Login or Share -->
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/facebook_app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- start Base Login flow for the user -->
+        <activity
+            android:name=".activity.BaseLoginActivity"
+            android:label="BaseLogin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BaseRegisterActivity"
+            android:label="RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BaseForgotPassActivity"
+            android:label="ForgotPassword"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- end base login flow -->
 
     </application>
 
