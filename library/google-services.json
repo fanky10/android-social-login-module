@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "social-login-example-5765b",
+    "project_number": "424213620432",
+    "name": "Social Login Example"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424213620432:android:4fd01d1e3c1e2973",
+        "client_id": "android:io.github.fanky10.sociallogin",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "io.github.fanky10.sociallogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "424213620432-17g7r21m99mfplbcep1pojqh10p7vmb8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.fanky10.sociallogin",
+            "certificate_hash": "130CE3EAE953E8C79BAA8611150BFF186FC1CF02"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
