@@ -3,6 +3,9 @@
     package="io.github.fanky10.sociallogin">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
 
     <application
         android:allowBackup="true"

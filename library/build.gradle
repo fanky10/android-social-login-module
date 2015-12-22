@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: 'gradle-upload.gradle'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
@@ -37,4 +38,5 @@ dependencies {
         transitive = true;
     }
 
+    compile 'com.google.android.gms:play-services-auth:8.3.0'
 }
