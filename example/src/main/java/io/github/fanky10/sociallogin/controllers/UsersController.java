@@ -1,6 +1,7 @@
 package io.github.fanky10.sociallogin.controllers;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class UsersController {
         // TODO: add data to Shared Prefs
     }
 
-    public UserModel findUserByLogin(String email, String password) {
+    public UserModel findByLogin(String email, String password) {
         List<UserModel> users = usersDAO.findAll();
         UserModel userModelFound = null;
         // draft find user.
@@ -39,7 +40,7 @@ public class UsersController {
         return userModelFound;
     }
 
-    public UserModel findUserBySocialLogin(String email, String scope) {
+    public UserModel findBySocialLogin(String email, String scope) {
         List<UserModel> users = usersDAO.findAll();
         UserModel userModelFound = null;
         // draft find user.
@@ -52,8 +53,8 @@ public class UsersController {
         return userModelFound;
     }
 
-    public void addUser(UserModel userModel) {
-
+    public void save(UserModel userModel) {
+        usersDAO.save(userModel);
     }
 
 
