@@ -43,6 +43,8 @@ public class LoginActivity extends BaseLoginActivity {
         if (found != null) {
             message = "Success!";
             // TODO: launch LoggedinActivity
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
 
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
