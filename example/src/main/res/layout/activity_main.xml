@@ -71,10 +71,10 @@
                     android:textStyle="bold"/>
 
             <fragment
+                    android:id="@+id/fragment_facebook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fragment_social"
-                    class="io.github.fanky10.sociallogin.SocialLoginFragment"/>
+                    class="io.github.fanky10.sociallogin.FacebookLoginFragment"/>
 
 
         </LinearLayout>

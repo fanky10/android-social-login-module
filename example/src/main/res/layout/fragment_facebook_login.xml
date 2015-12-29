@@ -11,9 +11,4 @@
             android:layout_height="wrap_content"
             android:text="fb login"/>
 
-    <com.twitter.sdk.android.core.identity.TwitterLoginButton
-            android:id="@+id/tw_login_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
 </LinearLayout>
