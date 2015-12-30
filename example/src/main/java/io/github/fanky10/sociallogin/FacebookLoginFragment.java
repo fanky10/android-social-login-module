@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import io.github.fanky10.sociallogin.controllers.UsersController;
+import io.github.fanky10.sociallogin.models.UserModel;
 import io.github.fanky10.sociallogin.module.constants.SocialLoginConstants;
 import io.github.fanky10.sociallogin.module.fragments.BaseFacebookLoginFragment;
 import io.github.fanky10.sociallogin.module.interfaces.IFacebook;
@@ -56,6 +58,13 @@ public class FacebookLoginFragment extends BaseFacebookLoginFragment {
         String email = response.optString(SocialLoginConstants.FACEBOOK_EMAIL);
         String firstName = response.optString(SocialLoginConstants.FACEBOOK_FIRST_NAME);
         String lastName = response.optString(SocialLoginConstants.FACEBOOK_LAST_NAME);
+
+        UserModel userModel = new UserModel();
+        userModel.setUsername(email);
+        userModel.setPassword("");
+        userModel.setScope("facebook");
+
+        new UsersController(getActivity()).save(userModel);
 
         Toast.makeText(getContext(), "Logged in as " + firstName + " " + lastName + " / " + email, Toast.LENGTH_SHORT).show();
     }

@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import io.github.fanky10.sociallogin.controllers.UsersController;
+import io.github.fanky10.sociallogin.models.UserModel;
 import io.github.fanky10.sociallogin.module.constants.SocialLoginConstants;
 import io.github.fanky10.sociallogin.module.fragments.BaseTwitterLoginFragment;
 
@@ -37,6 +39,13 @@ public class TwitterLoginFragment extends BaseTwitterLoginFragment {
         String email = response.optString(SocialLoginConstants.TWITTER_EMAIL);
         String name = response.optString(SocialLoginConstants.TWITTER_NAME);
         String screenName = response.optString(SocialLoginConstants.TWITTER_SCREEN_NAME);
+
+        UserModel userModel = new UserModel();
+        userModel.setUsername(email);
+        userModel.setPassword("");
+        userModel.setScope("twitter");
+
+        new UsersController(getActivity()).save(userModel);
 
         Toast.makeText(getContext(), "Logged in as " + name + " / " + screenName, Toast.LENGTH_SHORT).show();
     }
