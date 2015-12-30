@@ -17,11 +17,10 @@ import io.github.fanky10.sociallogin.module.constants.SocialLoginConstants;
 import io.github.fanky10.sociallogin.module.utils.CheckNetwork;
 import io.github.fanky10.sociallogin.module.utils.ValidateUserInfo;
 
-public class BaseRegisterActivity extends Activity implements View.OnClickListener{
+public abstract class BaseRegisterActivity extends Activity implements View.OnClickListener{
     private EditText edit_nome, edit_email, edit_password;
     private TextView txt_alreadyHave;
     private Button btn_registrar;
-    private CreateUserTask mCreateTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +72,13 @@ public class BaseRegisterActivity extends Activity implements View.OnClickListen
             edit_email.setError(getString(R.string.error_field_required));
             focusView = edit_email;
             cancel = true;
-        } else if (validate.isEmailValid(email)) {
+        } else if (!validate.isEmailValid(email)) {
             edit_email.setError(getString(R.string.error_invalid_email));
             focusView = edit_email;
             cancel = true;
         } else {
             // Check for a valid password, if the user entered one.
-            if (TextUtils.isEmpty(password) || validate.isPasswordValid(password)) {
+            if (TextUtils.isEmpty(password) || !validate.isPasswordValid(password)) {
                 edit_password.setError(getString(R.string.error_invalid_password));
                 focusView = edit_password;
                 cancel = true;
@@ -91,77 +90,25 @@ public class BaseRegisterActivity extends Activity implements View.OnClickListen
             // form field with an error.
             focusView.requestFocus();
         } else {
-            //TODO Create account logic
-            // Show a progress spinner, and kick off a background task to
-            // perform the user registration attempt.
-            mCreateTask = new CreateUserTask(name, email, password);
-            mCreateTask.execute((Void) null);
+            submitRegister(name, email, password);
+            finish();
         }
     }
+
+    protected abstract void submitRegister(String firstName, String email, String password);
 
     @Override
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.btn_register) {
             attemptCreate();
-
         } else if (i == R.id.txt_already_have) {
-            startActivity(new Intent(this, BaseLoginActivity.class));
             finish();
-
-        }
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class CreateUserTask extends AsyncTask<Void, Void, Boolean> {
-        private final String mName;
-        private final String mEmail;
-        private final String mPassword;
-
-        CreateUserTask(String name, String email, String password) {
-            mName = name;
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: check if account already exists against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            // TODO: if there's no account registered, register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mCreateTask = null;
-            CheckNetwork checkNetwork = new CheckNetwork();
-            if (checkNetwork.isConnected(BaseRegisterActivity.this) && success) {
-                Toast.makeText(BaseRegisterActivity.this, "Account created", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(BaseRegisterActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mCreateTask = null;
         }
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(BaseRegisterActivity.this, BaseLoginActivity.class));
         finish();
     }
 }

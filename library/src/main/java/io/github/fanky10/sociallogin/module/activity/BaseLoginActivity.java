@@ -11,7 +11,6 @@ import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -203,12 +202,10 @@ public abstract class BaseLoginActivity extends AppCompatActivity implements
         int i = v.getId();
         if (i == R.id.email_sign_in_button) {
             attemptLogin();
-
         } else if (i == R.id.txt_create) {
-            Intent intent = new Intent(BaseLoginActivity.this, BaseRegisterActivity.class);
+            Intent intent = createRegisterIntent();
             intent.putExtra(SocialLoginConstants.TAG_EMAIL, email);
             startActivity(intent);
-            finish();
         } else if (i == R.id.txt_forgot) {
             Intent intentForgot = new Intent(BaseLoginActivity.this, BaseForgotPassActivity.class);
             intentForgot.putExtra(SocialLoginConstants.TAG_EMAIL, email);
@@ -216,6 +213,8 @@ public abstract class BaseLoginActivity extends AppCompatActivity implements
             finish();
         }
     }
+
+    protected abstract Intent createRegisterIntent();
 
     private void onSignInClicked() {
 
