@@ -1,4 +1,4 @@
-package io.github.fanky10.sociallogin.model;
+package io.github.fanky10.sociallogin.models;
 
 /**
  * Created by fanky on 12/18/15.

@@ -13,20 +13,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ec126dd820361019834fec26fc83fd44a6c00f7a" />
+
+        <activity android:name=".MainActivity"/>
+
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="ec126dd820361019834fec26fc83fd44a6c00f7a" />
-
-        <activity android:name=".HelloWorld">
-
         </activity>
     </application>
 
