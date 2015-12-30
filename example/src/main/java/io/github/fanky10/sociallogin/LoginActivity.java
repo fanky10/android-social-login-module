@@ -20,11 +20,15 @@ import io.github.fanky10.sociallogin.controllers.UsersController;
 import io.github.fanky10.sociallogin.models.UserModel;
 import io.github.fanky10.sociallogin.module.activity.BaseLoginActivity;
 
-public class LoginActivity extends BaseLoginActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO: move to Application
+        FacebookSdk.sdkInitialize(this);
+
+        setContentView(R.layout.activity_login);
 
         // save mock User
         UserModel userModel = new UserModel();
@@ -33,25 +37,5 @@ public class LoginActivity extends BaseLoginActivity {
         userModel.setScope("email");
 
         new UsersController(this).save(userModel);
-    }
-
-    @Override
-    protected void submitLogIn(String email, String password) {
-        UserModel found = new UsersController(this).findByLogin(email, password);
-        String message = "Not found, check credentials";
-
-        if (found != null) {
-            message = "Success!";
-            // TODO: launch LoggedinActivity
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    protected Intent createRegisterIntent() {
-        return new Intent(this, RegisterAccountActivity.class);
     }
 }
