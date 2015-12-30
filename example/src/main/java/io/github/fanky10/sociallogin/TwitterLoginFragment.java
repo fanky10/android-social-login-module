@@ -6,10 +6,13 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import io.github.fanky10.sociallogin.module.constants.SocialLoginConstants;
 import io.github.fanky10.sociallogin.module.fragments.BaseTwitterLoginFragment;
 
 /**
@@ -32,12 +35,16 @@ public class TwitterLoginFragment extends BaseTwitterLoginFragment {
 
     @Override
     public void onSocialProviderConnected(String token, JSONObject response) {
+        String email = response.optString(SocialLoginConstants.TWITTER_EMAIL);
+        String name = response.optString(SocialLoginConstants.TWITTER_NAME);
+        String screenName = response.optString(SocialLoginConstants.TWITTER_SCREEN_NAME);
 
+        Toast.makeText(getContext(), "Logged in as " + name + " / " + screenName, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSocialProviderConnectionFailure(Exception e) {
-
+        Log.d("GATA", e.toString());
     }
 
     @Override
