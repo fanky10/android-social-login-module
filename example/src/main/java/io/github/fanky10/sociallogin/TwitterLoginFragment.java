@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +43,11 @@ public class TwitterLoginFragment extends BaseTwitterLoginFragment {
 
     @Override
     public void onSocialProviderConnectionFailure(Exception e) {
-        Log.d("GATA", e.toString());
+        Toast.makeText(getContext(), "Connection failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSocialProviderConnectionCanceled() {
-
+        Toast.makeText(getContext(), "Login canceled", Toast.LENGTH_SHORT).show();
     }
 }
