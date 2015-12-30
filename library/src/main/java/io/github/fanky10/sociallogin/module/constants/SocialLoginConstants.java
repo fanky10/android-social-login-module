@@ -10,4 +10,7 @@ public class SocialLoginConstants {
     public static final String FACEBOOK_FIRST_NAME = "first_name";
     public static final String FACEBOOK_LAST_NAME = "last_name";
 
+    public static final String TWITTER_EMAIL = "email";
+    public static final String TWITTER_NAME = "name";
+    public static final String TWITTER_SCREEN_NAME = "screen_name";
 }
