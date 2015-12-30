@@ -21,6 +21,7 @@ import android.os.Bundle;
 
 import java.io.IOException;
 
+import io.github.fanky10.sociallogin.module.constants.SocialLoginConstants;
 import io.github.fanky10.sociallogin.module.interfaces.ISocialLogin;
 
 /**
@@ -243,9 +244,9 @@ public class GooglePlusProvider implements
             if (token != null) {
                 JSONObject json = new JSONObject();
                 try {
-                    json.put("first_name", mFirstName);
-                    json.put("last_name", mLastName);
-                    json.put("email", mEmail);
+                    json.put(SocialLoginConstants.GOOGLE_FIRST_NAME, mFirstName);
+                    json.put(SocialLoginConstants.GOOGLE_LAST_NAME, mLastName);
+                    json.put(SocialLoginConstants.GOOGLE_EMAIL, mEmail);
                 } catch (JSONException ignore) {
 
                 }
