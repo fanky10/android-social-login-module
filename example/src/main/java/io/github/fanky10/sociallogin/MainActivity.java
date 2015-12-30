@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Make sure that the loginButton hears the result from any
         // Activity that it triggered.
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_facebook);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_twitter);
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }

@@ -76,6 +76,11 @@
                     android:layout_height="wrap_content"
                     class="io.github.fanky10.sociallogin.FacebookLoginFragment"/>
 
+            <fragment
+                    android:id="@+id/fragment_twitter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    class="io.github.fanky10.sociallogin.TwitterLoginFragment"/>
 
         </LinearLayout>
     </ScrollView>
