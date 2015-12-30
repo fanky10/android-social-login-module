@@ -6,6 +6,31 @@ Android social login module for facebook, g+ whatever comes next
 
 ### Android Studio
 
+Add to the top-level build file where you can add configuration options common to all sub-projects/modules.
+```
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'io.fabric.tools:gradle:1.+'
+        // Note: this will be changed to a more stable dependency
+        classpath 'com.google.gms:google-services:1.5.0-beta2'
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+        jcenter()
+    }
+}
+```
+
 Add to your application's `build.gradle` file
 
 ```
