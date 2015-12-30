@@ -2,25 +2,14 @@ package io.github.fanky10.sociallogin;
 
 import com.facebook.FacebookSdk;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import io.github.fanky10.sociallogin.controllers.UsersController;
 import io.github.fanky10.sociallogin.models.UserModel;
-import io.github.fanky10.sociallogin.module.activity.BaseLoginActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements ISocialLogin {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +26,16 @@ public class LoginActivity extends AppCompatActivity {
         userModel.setScope("email");
 
         new UsersController(this).save(userModel);
+    }
+
+    @Override
+    public void success(UserModel userModel) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void error(String message) {
+
     }
 }

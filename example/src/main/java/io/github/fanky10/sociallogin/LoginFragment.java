@@ -1,7 +1,10 @@
 package io.github.fanky10.sociallogin;
 
+import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 import io.github.fanky10.sociallogin.controllers.UsersController;
 import io.github.fanky10.sociallogin.models.UserModel;
@@ -12,6 +15,8 @@ import io.github.fanky10.sociallogin.module.fragments.BaseLoginFragment;
  */
 public class LoginFragment extends BaseLoginFragment {
 
+    private WeakReference<ISocialLogin> socialCallback;
+
     @Override
     protected void submitLogIn(String email, String password) {
         UserModel found = new UsersController(getActivity()).findByLogin(email, password);
@@ -19,9 +24,7 @@ public class LoginFragment extends BaseLoginFragment {
 
         if (found != null) {
             message = "Success!";
-            // TODO: launch LoggedinActivity
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
+            socialCallback.get().success(found);
         }
 
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
@@ -30,5 +33,12 @@ public class LoginFragment extends BaseLoginFragment {
     @Override
     protected Intent createRegisterIntent() {
         return new Intent(getActivity(), RegisterAccountActivity.class);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        // if it's not implemented BOOM
+        socialCallback = new WeakReference<ISocialLogin>((ISocialLogin) getActivity());
     }
 }
