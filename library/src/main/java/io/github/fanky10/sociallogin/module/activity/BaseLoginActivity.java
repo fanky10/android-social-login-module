@@ -42,7 +42,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * Created by mariano.salvetti on 21/12/2015
  */
-public class BaseLoginActivity extends AppCompatActivity implements
+public abstract class BaseLoginActivity extends AppCompatActivity implements
         View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     // UI references.
@@ -52,27 +52,14 @@ public class BaseLoginActivity extends AppCompatActivity implements
     private View mLoginFormView;
     private TextView mCreateview;
     private TextView mForgotView;
-  //  private SignInButton mPlusSignInButton;
 
     private ProgressDialog ringProgressDialog;
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "admin@admin.com:admin", "admin123@admin123.com:admin123"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,19 +95,13 @@ public class BaseLoginActivity extends AppCompatActivity implements
         });
 
         populateAutoComplete();
-
-
-     /*   mPlusSignInButton = (SignInButton) findViewById(R.id.g_sign_in_button);
-        mPlusSignInButton.setSize(SignInButton.SIZE_WIDE);
-        mPlusSignInButton.setOnClickListener(this);
-     */
         mCreateview = (TextView) findViewById(R.id.txt_create);
         mCreateview.setOnClickListener(this);
 
         mForgotView = (TextView) findViewById(R.id.txt_forgot);
         mForgotView.setOnClickListener(this);
 
-
+        // TODO: add the social fragment
     }
 
     private void populateAutoComplete() {
@@ -171,10 +152,6 @@ public class BaseLoginActivity extends AppCompatActivity implements
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -213,34 +190,18 @@ public class BaseLoginActivity extends AppCompatActivity implements
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            submitLogIn(email, password);
         }
     }
 
-/*    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Make sure that the loginButton hears the result from any
-        // Activity that it triggered.
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_social);
-        if (fragment != null) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
-
-    } */
+    protected abstract void submitLogIn(String email, String password);
 
     @Override
     public void onClick(View v) {
         String email = mEmailView.getText().toString();
 
         int i = v.getId();
-      /*  if (i == R.id.g_sign_in_button) {
-            onSignInClicked();
-
-        } else */ if (i == R.id.email_sign_in_button) {
+        if (i == R.id.email_sign_in_button) {
             attemptLogin();
 
         } else if (i == R.id.txt_create) {
@@ -248,13 +209,11 @@ public class BaseLoginActivity extends AppCompatActivity implements
             intent.putExtra(SocialLoginConstants.TAG_EMAIL, email);
             startActivity(intent);
             finish();
-
         } else if (i == R.id.txt_forgot) {
             Intent intentForgot = new Intent(BaseLoginActivity.this, BaseForgotPassActivity.class);
             intentForgot.putExtra(SocialLoginConstants.TAG_EMAIL, email);
             startActivity(intentForgot);
             finish();
-
         }
     }
 
@@ -365,68 +324,5 @@ public class BaseLoginActivity extends AppCompatActivity implements
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
-    }
-
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            View parentLayout = findViewById(R.id.login_form);
-            if (success) {
-                Snackbar.make(parentLayout, "LOGIN SUCCESS!", Snackbar.LENGTH_LONG)
-                        .show();
-               // TODO: implements here like this:
-               // startActivity(new Intent(BaseLoginActivity.this, MainActivity.class));
-               // finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
     }
 }

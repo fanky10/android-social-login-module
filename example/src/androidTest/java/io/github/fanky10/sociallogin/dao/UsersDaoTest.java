@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import io.github.fanky10.sociallogin.model.UserModel;
+import io.github.fanky10.sociallogin.models.UserModel;
 
 /**
  * Created by fanky on 12/21/15.
