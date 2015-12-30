@@ -49,4 +49,9 @@ public class LoginActivity extends BaseLoginActivity {
 
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    protected Intent createRegisterIntent() {
+        return new Intent(this, RegisterAccountActivity.class);
+    }
 }
