@@ -49,7 +49,7 @@ repositories {
 }
 
 dependencies {
-  compile 'io.github.fanky10:social-login-module:1.0.0'
+  compile 'io.github.fanky10:social-login-module:1.0.1'
 }
 ```
 
