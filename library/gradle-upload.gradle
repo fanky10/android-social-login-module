@@ -7,7 +7,7 @@ uploadArchives {
         pom.project {
             groupId 'io.github.fanky10'
             artifactId 'social-login-module'
-            version "1.0.0"
+            version "1.0.1"
         }
     }
 }

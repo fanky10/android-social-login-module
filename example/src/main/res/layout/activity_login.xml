@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <fragment
+            android:id="@+id/email_login_fragment"
+            class="io.github.fanky10.sociallogin.LoginFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <fragment
+            android:id="@+id/fb_login_fragment"
+            class="io.github.fanky10.sociallogin.FacebookLoginFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <fragment
+            android:id="@+id/twitter_login_fragment"
+            class="io.github.fanky10.sociallogin.TwitterLoginFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>
