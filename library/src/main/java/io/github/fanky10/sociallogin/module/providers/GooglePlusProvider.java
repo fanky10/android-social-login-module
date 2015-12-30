@@ -11,6 +11,7 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -240,7 +241,15 @@ public class GooglePlusProvider implements
         protected void onPostExecute(String token) {
             super.onPostExecute(token);
             if (token != null) {
-                mCallback.onSocialProviderConnected(token, new JSONObject());
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("first_name", mFirstName);
+                    json.put("last_name", mLastName);
+                    json.put("email", mEmail);
+                } catch (JSONException ignore) {
+
+                }
+                mCallback.onSocialProviderConnected(token, json);
             } else {
                 mCallback.onSocialProviderConnectionFailure(new Exception("generic error"));
             }
