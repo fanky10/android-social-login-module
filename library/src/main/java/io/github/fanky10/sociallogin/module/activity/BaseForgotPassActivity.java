@@ -95,9 +95,7 @@ public class BaseForgotPassActivity extends Activity implements View.OnClickList
             attemptRecover();
 
         } else if (i == R.id.txt_remembered) {
-            startActivity(new Intent(BaseForgotPassActivity.this, BaseLoginActivity.class));
             finish();
-
         }
     }
 
@@ -146,7 +144,6 @@ public class BaseForgotPassActivity extends Activity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(BaseForgotPassActivity.this, BaseLoginActivity.class));
         finish();
     }
 }
