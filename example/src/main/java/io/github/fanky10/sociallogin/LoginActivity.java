@@ -38,4 +38,9 @@ public class LoginActivity extends AppCompatActivity implements ISocialLogin {
     public void error(String message) {
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
