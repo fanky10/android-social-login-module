@@ -11,20 +11,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import io.github.fanky10.sociallogin.module.constants.SocialLoginConstants;
-import io.github.fanky10.sociallogin.module.fragments.BaseSocialLoginFragment;
+import io.github.fanky10.sociallogin.module.fragments.BaseFacebookLoginFragment;
 import io.github.fanky10.sociallogin.module.interfaces.IFacebook;
 
 /**
  * Created by carlospienovi1 on 12/16/15.
  */
-public class SocialLoginFragment extends BaseSocialLoginFragment {
+public class FacebookLoginFragment extends BaseFacebookLoginFragment {
 
     private Button mFacebookLogin;
-
-    @Override
-    protected int getTwitterLoginButtonId() {
-        return R.id.tw_login_button;
-    }
 
     @Nullable
     @Override
