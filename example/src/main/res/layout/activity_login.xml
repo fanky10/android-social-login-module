@@ -18,4 +18,10 @@
             class="io.github.fanky10.sociallogin.TwitterLoginFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+    <fragment
+            android:id="@+id/google_login_fragment"
+            class="io.github.fanky10.sociallogin.GooglePlusLoginFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 </LinearLayout>
