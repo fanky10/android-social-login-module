@@ -4,6 +4,7 @@ import com.facebook.FacebookSdk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import io.github.fanky10.sociallogin.controllers.UsersController;
@@ -42,5 +43,11 @@ public class LoginActivity extends AppCompatActivity implements ISocialLogin {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.google_login_fragment);
+
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

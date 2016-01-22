@@ -15,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -102,6 +104,14 @@ public abstract class BaseGooglePlusLoginFragment extends Fragment implements
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_RESOLVE_ERROR && resultCode == Activity.RESULT_OK) {
+            doGoogleLoginProcess();
+        }
+    }
+
+    @Override
     public void onResult(@NonNull People.LoadPeopleResult loadPeopleResult) {
         final Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         final String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
@@ -125,10 +135,10 @@ public abstract class BaseGooglePlusLoginFragment extends Fragment implements
                         json.put(SocialLoginConstants.GOOGLE_FIRST_NAME, person.getName().getGivenName());
                         json.put(SocialLoginConstants.GOOGLE_LAST_NAME, person.getName().getFamilyName());
                         json.put(SocialLoginConstants.GOOGLE_EMAIL, email);
-                    } catch (JSONException ignore) {
-
+                        onSocialProviderConnected(token, json);
+                    } catch (JSONException e) {
+                        onSocialProviderConnectionFailure(e);
                     }
-                    onSocialProviderConnected(token, json);
                 } else {
                     onSocialProviderConnectionFailure(new Exception("generic error"));
                 }
