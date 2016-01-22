@@ -96,7 +96,9 @@ public abstract class BaseGooglePlusLoginFragment extends Fragment implements
             try {
                 connectionResult.startResolutionForResult(getActivity(), REQUEST_RESOLVE_ERROR);
             } catch (IntentSender.SendIntentException e) {
-                e.printStackTrace();
+                // https://developers.google.com/android/guides/api-client
+                // There was an error with the resolution intent. Try again.
+                doGoogleLoginProcess();
             }
         } else {
             onSocialProviderConnectionFailure(new Exception(connectionResult.getErrorMessage()));
