@@ -39,12 +39,11 @@ before_install:
   - adb shell input keyevent 82
   # Unlock emulator
   - adb shell input keyevent 82
-  # First download the bash script
-  - wget http://imgur.com/tools/imgurbash.sh
-  - chmod a+x imgurbash.sh
+  # Screenshot emulator
+  - chmod a+x tools/imgurbash.sh
   - adb shell screencap -p | sed 's/\r$//' > bootscreen.png
-  - ./imgurbash.sh bootscreen.png
-  # Continue running some more tests
+  - ./tools/imgurbash.sh bootscreen.png
+
 
 script:
   - echo "script run"
