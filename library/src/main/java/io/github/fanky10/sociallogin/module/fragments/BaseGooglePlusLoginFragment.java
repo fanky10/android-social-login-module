@@ -118,6 +118,12 @@ public abstract class BaseGooglePlusLoginFragment extends Fragment implements
         final Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         final String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
 
+        if (person == null) {
+            // bad result
+            onSocialProviderConnectionFailure(new IllegalArgumentException("No Person as Result"));
+            return ;
+        }
+
         new AsyncTask<String, Void, String>() {
 
             @Override

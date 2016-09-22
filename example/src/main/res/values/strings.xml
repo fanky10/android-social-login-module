@@ -2,4 +2,6 @@
     <string name="app_name">Social Login</string>
     <string name="please_wait_login">Wait a moment please...</string>
     <string name="login_failed">Login Error</string>
+
+    <string name="fabric_api_key">Place your api key</string>
 </resources>
