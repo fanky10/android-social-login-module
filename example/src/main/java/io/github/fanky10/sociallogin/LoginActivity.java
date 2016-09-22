@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import io.github.fanky10.sociallogin.controllers.UsersController;
 import io.github.fanky10.sociallogin.models.UserModel;
@@ -22,8 +23,8 @@ public class LoginActivity extends AppCompatActivity implements ISocialLogin {
 
         // save mock User
         UserModel userModel = new UserModel();
-        userModel.setUsername("test@email.com");
-        userModel.setPassword("abc123");
+        userModel.setUsername("email@example.com");
+        userModel.setPassword("example");
         userModel.setScope("email");
 
         new UsersController(this).save(userModel);
@@ -31,13 +32,12 @@ public class LoginActivity extends AppCompatActivity implements ISocialLogin {
 
     @Override
     public void success(UserModel userModel) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        Toast.makeText(this, "Success - Scope: " + userModel.getScope(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void error(String message) {
-
+        Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

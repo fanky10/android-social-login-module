@@ -4,8 +4,8 @@
 TODO: Before you run your application, you need a Facebook API Key and Google Maps API Key.
     -->
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">PUT_KEY_HERE</string>
-    <string name="facebook_app_key" translatable="false" templateMergeStrategy="preserve">953570944736041</string>
-    <string name="facebook_app_name" translatable="false" templateMergeStrategy="preserve">HelloWorld</string>
-    <string name="twitter_app_key" translatable="false" templateMergeStrategy="preserve">QijTu4pblJCmVjv7c1DzkEof9</string>
-    <string name="twitter_app_secret" translatable="false" templateMergeStrategy="preserve">rZ57xciYhH8qljzlxQUUKDw4bWBIBTBTYRVvvmw9E3dCsMsyJT</string>
+    <string name="facebook_app_key" translatable="false" templateMergeStrategy="preserve">PUT_KEY_HERE</string>
+    <string name="facebook_app_name" translatable="false" templateMergeStrategy="preserve">SocialLogin</string>
+    <string name="twitter_app_key" translatable="false" templateMergeStrategy="preserve">PUT_KEY_HERE</string>
+    <string name="twitter_app_secret" translatable="false" templateMergeStrategy="preserve">PUT_KEY_HERE</string>
 </resources>
